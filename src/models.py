@@ -4,7 +4,6 @@ from database import Base
 from typing import Optional, Annotated
 
 intpk = Annotated[int, mapped_column(primary_key=True)]
-strnn = Annotated[str,mapped_column(nullable=False)]
 
 metadata_obj = MetaData()
 
@@ -32,19 +31,27 @@ class Positions_orm(Base):
 class FPM_POO_orm(Base):
     __tablename__="ФПМ ПОО"
     id:Mapped[intpk]
-    poo:Mapped[strnn]
-    subject:Mapped[strnn]
-    inn:Mapped[strnn]
-    company:Mapped[strnn]
-    professions_positions:Mapped[strnn]
-    profession_category:Mapped[strnn]
-    name_profession:Mapped[strnn]
-    number_of_vacancies:Mapped[strnn]
-    undergoing_production_practice:Mapped[strnn]#проходят производственную ппарктику
-    will_undergo_production_internship:Mapped[strnn]#будут проходить практику
-    employed_by_company:Mapped[strnn]#устроенные в компанию
-    target:Mapped[strnn]#целевое
-    
+    poo:Mapped[str]
+    subject:Mapped[str]
+    inn:Mapped[str]
+    company:Mapped[str]
+    professions_positions:Mapped[str]
+    profession_category:Mapped[str]
+    professions_positions_:Mapped[str]
+    name_profession:Mapped[str]
+    number_of_vacancies:Mapped[str]
+    undergoing_production_practice:Mapped[str]#проходят производственную ппарктику
+    will_undergo_production_internship:Mapped[str]#будут проходить практику
+    employed_by_company:Mapped[str]#устроенные в компанию
+    target:Mapped[str]#целевое
+    total:Mapped[str]#всего
+    since_last_year:Mapped[str]#с прошлого года
+    employed_this_year:Mapped[str]#Из них трудоустроенны выпускники этого года
+    employed_previous_years:Mapped[str]#Из них трудоустроенные выпускники прошлых лет
+    employed_previous_years_pre_call:Mapped[str]#Из них трудоустроенные выпускники прошлых лет завершивших службу по призыву
+    closed_other_ways:Mapped[str]#Количество вакансий, закрытых иными способами
+    mechanism_closing_different_way:Mapped[str]#Механизм закрытия иным способом
+    data:Mapped[str]#дата
 
     
 class resumes(Base):
