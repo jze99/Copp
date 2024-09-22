@@ -1,4 +1,4 @@
-from sqlalchemy import text, insert
+from sqlalchemy import text, insert, select
 from database import sync_engine, async_engine, sync_sassion, Base
 from models import FPM_POO_orm
 import openpyxl
@@ -28,4 +28,10 @@ def insert_data(data):
         session.add_all(data)
         session.commit()
 
+def select_data():
+    with sync_sassion() as session:
+        query = select(FPM_POO_orm)
+        result = session.execute(query)
+        return result.scalars().all()
+    
         

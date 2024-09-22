@@ -40,11 +40,11 @@ class FPM_POO_orm(Base):
     professions_positions_:Mapped[str]
     name_profession:Mapped[str]
     number_of_vacancies:Mapped[str]
-    undergoing_production_practice:Mapped[str]#проходят производственную ппарктику
-    will_undergo_production_internship:Mapped[str]#будут проходить практику
-    employed_by_company:Mapped[str]#устроенные в компанию
+    undergoing_production_practice:Mapped[str]#проходят производственную ппарктику1
+    will_undergo_production_internship:Mapped[str]#будут проходить практику2
+    employed_by_company:Mapped[str]#устроенные в компанию3
     target:Mapped[str]#целевое
-    total:Mapped[str]#всего
+    total:Mapped[str]#всего4
     since_last_year:Mapped[str]#с прошлого года
     employed_this_year:Mapped[str]#Из них трудоустроенны выпускники этого года
     employed_previous_years:Mapped[str]#Из них трудоустроенные выпускники прошлых лет
