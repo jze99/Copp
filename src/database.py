@@ -4,8 +4,8 @@ from sqlalchemy import text, create_engine
 from config import settings
 
 # Create the async engine
-async_engine = create_async_engine(settings.DATABASE_URL_asyncpg, echo=True)
-sync_engine = create_engine(url=settings.DATABASE_URL_psyncopg)
+async_engine = create_async_engine(url=settings.DATABASE_URL_asyncpg, echo=True)
+sync_engine = create_engine(url=settings.DATABASE_URL_syncopg, echo=True)
 
 async_sassion = async_sessionmaker(async_engine)
 sync_sassion = sessionmaker(sync_engine)

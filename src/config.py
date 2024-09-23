@@ -13,7 +13,7 @@ class Settings(BaseSettings):
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
     
     @property
-    def DATABASE_URL_psyncopg(self) -> str:
+    def DATABASE_URL_syncopg(self) -> str:
         return f"postgresql+psycopg2://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
     
     #model_conf= SettingsConfigDict(env_file=".env")
