@@ -1,7 +1,14 @@
 from queries.orm import select_data
 
-class data_dinam:
-    def 
+class data_dynamics:
+   def __init__(self,summ:int,undergoing_production_practice:int,will_undergo_production_internship:int,employed_by_company:int,total:int,data:str):
+        self.summ:int=summ
+        self.undergoing_production_practice:int=undergoing_production_practice
+        self.will_undergo_production_internship:int=will_undergo_production_internship
+        self.employed_by_company:int=employed_by_company
+        self.total:int =total
+        self.data:str=data
+        pass
 
 class data_FPM_POO:
     
