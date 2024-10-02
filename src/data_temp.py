@@ -1,5 +1,5 @@
-from queries.orm import orm_data_functions
-from models import Data_employment_orm, Employment_orm
+from src.queries.orm import orm_data_functions
+from src.models import Data_employment_orm, Employment_orm
 
 class data_dynamics:
     def __init__(self,summ:int,undergoing_production_practice:int,will_undergo_production_internship:int,employed_by_company:int,total:int,data:str):
@@ -43,88 +43,88 @@ class data_FPM_POO:
         pass
 
 
-class other_data(orm_data_functions):
-    poo_data_time_filter={}
-    model_data={}
-    #model_data_poo={}
-    poo_dinamics={}
-
-
-    @classmethod
-    def validate_data_or_none(cls,data):
-        if (data != 'None'):
-            return data
-        else:
-            return 0
-    
-    
-    @classmethod
-    def load_data(cls): 
-        temp_data = select_data()
-        for data in temp_data:
-            other_data.poo_data_time_filter[data.data] = select_data_filter(data_time=data.data)
-            
-        other_data.filter_data()
-     
-     
-    @classmethod   
-    def filter_data(cls):
-        for data in other_data.poo_data_time_filter:
-            other_data.model_data[data] = other_data.create_model_data_poo(data=data)
-            other_data.poo_dinamics[data] = other_data.crate_model_data_dinamic(data=data)
-        pass
-            
-            
-    @classmethod
-    def create_model_data_poo(cls, data):
-        model_data_poo={}    
-        for model in other_data.poo_data_time_filter[data]:
-            if model.poo not in model_data_poo:
-                model_data_poo[model.poo] = data_FPM_POO(
-                    poo=model.poo,
-                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
-                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
-                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
-                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
-                    total=int(other_data.validate_data_or_none(model.total)),
-                    data=model.data
-                )
-            else:
-                model_data_poo[model.poo].summ_data(
-                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
-                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
-                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
-                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
-                    total=int(other_data.validate_data_or_none(model.total)),
-                )
-        return model_data_poo
-        
-    
-    @classmethod
-    def crate_model_data_dinamic(cls,data):   
-        model_data_poo={}
-        for model in other_data.poo_data_time_filter[data]:
-            if data not in model_data_poo:
-                model_data_poo[data] = data_dynamics(
-                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
-                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
-                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
-                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
-                    total=int(other_data.validate_data_or_none(model.total)),
-                    data=model.data
-                )
-            else:
-                model_data_poo[data].summ_data(
-                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
-                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
-                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
-                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
-                    total=int(other_data.validate_data_or_none(model.total))
-                )
-        mode_ret = []
-        for mode in model_data_poo:
-            mode_ret.append(model_data_poo[mode])
-        return mode_ret
+#class other_data(orm_data_functions):
+#    poo_data_time_filter={}
+#    model_data={}
+#    #model_data_poo={}
+#    poo_dinamics={}
+#
+#
+#    @classmethod
+#    def validate_data_or_none(cls,data):
+#        if (data != 'None'):
+#            return data
+#        else:
+#            return 0
+#    
+#    
+#    @classmethod
+#    def load_data(cls): 
+#        temp_data = select_data()
+#        for data in temp_data:
+#            other_data.poo_data_time_filter[data.data] = select_data_filter(data_time=data.data)
+#            
+#        other_data.filter_data()
+#     
+#     
+#    @classmethod   
+#    def filter_data(cls):
+#        for data in other_data.poo_data_time_filter:
+#            other_data.model_data[data] = other_data.create_model_data_poo(data=data)
+#            other_data.poo_dinamics[data] = other_data.crate_model_data_dinamic(data=data)
+#        pass
+#            
+#            
+#    @classmethod
+#    def create_model_data_poo(cls, data):
+#        model_data_poo={}    
+#        for model in other_data.poo_data_time_filter[data]:
+#            if model.poo not in model_data_poo:
+#                model_data_poo[model.poo] = data_FPM_POO(
+#                    poo=model.poo,
+#                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
+#                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
+#                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
+#                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
+#                    total=int(other_data.validate_data_or_none(model.total)),
+#                    data=model.data
+#                )
+#            else:
+#                model_data_poo[model.poo].summ_data(
+#                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
+#                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
+#                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
+#                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
+#                    total=int(other_data.validate_data_or_none(model.total)),
+#                )
+#        return model_data_poo
+#        
+#    
+#    @classmethod
+#    def crate_model_data_dinamic(cls,data):   
+#        model_data_poo={}
+#        for model in other_data.poo_data_time_filter[data]:
+#            if data not in model_data_poo:
+#                model_data_poo[data] = data_dynamics(
+#                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
+#                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
+#                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
+#                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
+#                    total=int(other_data.validate_data_or_none(model.total)),
+#                    data=model.data
+#                )
+#            else:
+#                model_data_poo[data].summ_data(
+#                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
+#                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
+#                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
+#                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
+#                    total=int(other_data.validate_data_or_none(model.total))
+#                )
+#        mode_ret = []
+#        for mode in model_data_poo:
+#            mode_ret.append(model_data_poo[mode])
+#        return mode_ret
 
 class spec_data_employment:
     def __init__(
@@ -166,6 +166,46 @@ class spec_data_employment:
         self.Other_reasons_for_being_at_risk_of_disability=Other_reasons_for_being_at_risk_of_disability
 
     def add_data(
+            self,
+            The_total_output,
+            Employed,
+            of_these_employed_in_their_profession_specialty,
+            Registered_as_an_individual_entrepreneur_or_self_employed,
+            They_will_be_employed,
+            of_these_they_will_be_employed_in_their_profession_specialty,
+            They_plan_to_register_as_an_individual,
+            They_have_continued_their_studies_and_have_not_found_a_job,
+            Drafted_into_the_Armed_Forces_of_the_Russian_Federation,
+            Are_on_parental_leave,
+            They_are_under_investigation_and_are_serving_their_sentence,
+            They_take_care_of_sick_relatives,
+            Registered_in_employment_centers_as_unemployed,
+            Have_moved_outside_the_Russian_Federation,
+            They_do_not_plan_to_get_a_job_including,
+            Severe_health_condition_that_does_not_allow_employment_death,
+            Other_reasons_for_being_at_risk_of_disability
+        ):
+        self.The_total_output+=The_total_output
+        self.Employed+=Employed
+        self.of_these_employed_in_their_profession_specialty+=of_these_employed_in_their_profession_specialty
+        self.Registered_as_an_individual_entrepreneur_or_self_employed+=Registered_as_an_individual_entrepreneur_or_self_employed
+        self.They_will_be_employed+=They_will_be_employed
+        self.of_these_they_will_be_employed_in_their_profession_specialty+=of_these_they_will_be_employed_in_their_profession_specialty
+        self.They_plan_to_register_as_an_individual+=They_plan_to_register_as_an_individual
+        self.They_have_continued_their_studies_and_have_not_found_a_job+=They_have_continued_their_studies_and_have_not_found_a_job
+        self.Drafted_into_the_Armed_Forces_of_the_Russian_Federation+=Drafted_into_the_Armed_Forces_of_the_Russian_Federation
+        self.Are_on_parental_leave+=Are_on_parental_leave
+        self.They_are_under_investigation_and_are_serving_their_sentence+=They_are_under_investigation_and_are_serving_their_sentence
+        self.They_take_care_of_sick_relatives+=They_take_care_of_sick_relatives
+        self.Registered_in_employment_centers_as_unemployed+=Registered_in_employment_centers_as_unemployed
+        self.Have_moved_outside_the_Russian_Federation+=Have_moved_outside_the_Russian_Federation
+        self.They_do_not_plan_to_get_a_job_including+=They_do_not_plan_to_get_a_job_including
+        self.Severe_health_condition_that_does_not_allow_employment_death+=Severe_health_condition_that_does_not_allow_employment_death
+        self.Other_reasons_for_being_at_risk_of_disability+=Other_reasons_for_being_at_risk_of_disability
+    
+class data_employment:
+    def __init__(
+            self,
             The_total_output,
             Employed,
             of_these_employed_in_their_profession_specialty,
@@ -201,40 +241,146 @@ class spec_data_employment:
         self.They_do_not_plan_to_get_a_job_including=They_do_not_plan_to_get_a_job_including
         self.Severe_health_condition_that_does_not_allow_employment_death=Severe_health_condition_that_does_not_allow_employment_death
         self.Other_reasons_for_being_at_risk_of_disability=Other_reasons_for_being_at_risk_of_disability
+
+    def add_data(
+            self,
+            The_total_output,
+            Employed,
+            of_these_employed_in_their_profession_specialty,
+            Registered_as_an_individual_entrepreneur_or_self_employed,
+            They_will_be_employed,
+            of_these_they_will_be_employed_in_their_profession_specialty,
+            They_plan_to_register_as_an_individual,
+            They_have_continued_their_studies_and_have_not_found_a_job,
+            Drafted_into_the_Armed_Forces_of_the_Russian_Federation,
+            Are_on_parental_leave,
+            They_are_under_investigation_and_are_serving_their_sentence,
+            They_take_care_of_sick_relatives,
+            Registered_in_employment_centers_as_unemployed,
+            Have_moved_outside_the_Russian_Federation,
+            They_do_not_plan_to_get_a_job_including,
+            Severe_health_condition_that_does_not_allow_employment_death,
+            Other_reasons_for_being_at_risk_of_disability
+        ):
+        self.The_total_output+=The_total_output
+        self.Employed+=Employed
+        self.of_these_employed_in_their_profession_specialty+=of_these_employed_in_their_profession_specialty
+        self.Registered_as_an_individual_entrepreneur_or_self_employed+=Registered_as_an_individual_entrepreneur_or_self_employed
+        self.They_will_be_employed+=They_will_be_employed
+        self.of_these_they_will_be_employed_in_their_profession_specialty+=of_these_they_will_be_employed_in_their_profession_specialty
+        self.They_plan_to_register_as_an_individual+=They_plan_to_register_as_an_individual
+        self.They_have_continued_their_studies_and_have_not_found_a_job+=They_have_continued_their_studies_and_have_not_found_a_job
+        self.Drafted_into_the_Armed_Forces_of_the_Russian_Federation+=Drafted_into_the_Armed_Forces_of_the_Russian_Federation
+        self.Are_on_parental_leave+=Are_on_parental_leave
+        self.They_are_under_investigation_and_are_serving_their_sentence+=They_are_under_investigation_and_are_serving_their_sentence
+        self.They_take_care_of_sick_relatives+=They_take_care_of_sick_relatives
+        self.Registered_in_employment_centers_as_unemployed+=Registered_in_employment_centers_as_unemployed
+        self.Have_moved_outside_the_Russian_Federation+=Have_moved_outside_the_Russian_Federation
+        self.They_do_not_plan_to_get_a_job_including+=They_do_not_plan_to_get_a_job_including
+        self.Severe_health_condition_that_does_not_allow_employment_death+=Severe_health_condition_that_does_not_allow_employment_death
+        self.Other_reasons_for_being_at_risk_of_disability+=Other_reasons_for_being_at_risk_of_disability
     
 class data_employment_dynamics(orm_data_functions):
     def __init__(self):
         self.data_sort_base={}
         self.data_sort_spec={}
-        self.data_sort_spec_data={}
+        self.data_other_denamic={}
+        self.data_spec_data={}
+        
+    def add_sort_spech(self, data, object):
+        if object.The_code_and_name_of_the_profession_specialty not in self.data_sort_spec:
+            self.data_sort_spec[object.The_code_and_name_of_the_profession_specialty] = spec_data_employment(
+                The_total_output=int(object.The_total_output),
+                Employed=int(object.Employed),
+                of_these_employed_in_their_profession_specialty=int(object.of_these_employed_in_their_profession_specialty),
+                Registered_as_an_individual_entrepreneur_or_self_employed=int(object.Registered_as_an_individual_entrepreneur_or_self_employed),
+                They_will_be_employed=int(object.They_will_be_employed),
+                of_these_they_will_be_employed_in_their_profession_specialty=int(object.of_these_they_will_be_employed_in_their_profession_specialty),
+                They_plan_to_register_as_an_individual=int(object.They_plan_to_register_as_an_individual),
+                They_have_continued_their_studies_and_have_not_found_a_job=int(object.They_have_continued_their_studies_and_have_not_found_a_job),
+                Drafted_into_the_Armed_Forces_of_the_Russian_Federation=int(object.Drafted_into_the_Armed_Forces_of_the_Russian_Federation),
+                Are_on_parental_leave=int(object.Are_on_parental_leave),
+                They_are_under_investigation_and_are_serving_their_sentence=int(object.They_are_under_investigation_and_are_serving_their_sentence),
+                They_take_care_of_sick_relatives=int(object.They_take_care_of_sick_relatives),
+                Registered_in_employment_centers_as_unemployed=int(object.Registered_in_employment_centers_as_unemployed),
+                Have_moved_outside_the_Russian_Federation=int(object.Have_moved_outside_the_Russian_Federation),
+                They_do_not_plan_to_get_a_job_including=int(object.They_do_not_plan_to_get_a_job_including),
+                Severe_health_condition_that_does_not_allow_employment_death=int(object.Severe_health_condition_that_does_not_allow_employment_death),
+                Other_reasons_for_being_at_risk_of_disability=int(object.Other_reasons_for_being_at_risk_of_disability)
+            )
+        else:
+            self.data_sort_spec[object.The_code_and_name_of_the_profession_specialty].add_data(
+                The_total_output=int(object.The_total_output),
+                Employed=int(object.Employed),
+                of_these_employed_in_their_profession_specialty=int(object.of_these_employed_in_their_profession_specialty),
+                Registered_as_an_individual_entrepreneur_or_self_employed=int(object.Registered_as_an_individual_entrepreneur_or_self_employed),
+                They_will_be_employed=int(object.They_will_be_employed),
+                of_these_they_will_be_employed_in_their_profession_specialty=int(object.of_these_they_will_be_employed_in_their_profession_specialty),
+                They_plan_to_register_as_an_individual=int(object.They_plan_to_register_as_an_individual),
+                They_have_continued_their_studies_and_have_not_found_a_job=int(object.They_have_continued_their_studies_and_have_not_found_a_job),
+                Drafted_into_the_Armed_Forces_of_the_Russian_Federation=int(object.Drafted_into_the_Armed_Forces_of_the_Russian_Federation),
+                Are_on_parental_leave=int(object.Are_on_parental_leave),
+                They_are_under_investigation_and_are_serving_their_sentence=int(object.They_are_under_investigation_and_are_serving_their_sentence),
+                They_take_care_of_sick_relatives=int(object.They_take_care_of_sick_relatives),
+                Registered_in_employment_centers_as_unemployed=int(object.Registered_in_employment_centers_as_unemployed),
+                Have_moved_outside_the_Russian_Federation=int(object.Have_moved_outside_the_Russian_Federation),
+                They_do_not_plan_to_get_a_job_including=int(object.They_do_not_plan_to_get_a_job_including),
+                Severe_health_condition_that_does_not_allow_employment_death=int(object.Severe_health_condition_that_does_not_allow_employment_death),
+                Other_reasons_for_being_at_risk_of_disability=int(object.Other_reasons_for_being_at_risk_of_disability)
+            )
+        
+    def add_sort_data(self,data,object):
+        if data not in self.data_other_denamic:
+            self.data_other_denamic[data] = data_employment(
+                The_total_output=int(object.The_total_output),
+                Employed=int(object.Employed),
+                of_these_employed_in_their_profession_specialty=int(object.of_these_employed_in_their_profession_specialty),
+                Registered_as_an_individual_entrepreneur_or_self_employed=int(object.Registered_as_an_individual_entrepreneur_or_self_employed),
+                They_will_be_employed=int(object.They_will_be_employed),
+                of_these_they_will_be_employed_in_their_profession_specialty=int(object.of_these_they_will_be_employed_in_their_profession_specialty),
+                They_plan_to_register_as_an_individual=int(object.They_plan_to_register_as_an_individual),
+                They_have_continued_their_studies_and_have_not_found_a_job=int(object.They_have_continued_their_studies_and_have_not_found_a_job),
+                Drafted_into_the_Armed_Forces_of_the_Russian_Federation=int(object.Drafted_into_the_Armed_Forces_of_the_Russian_Federation),
+                Are_on_parental_leave=int(object.Are_on_parental_leave),
+                They_are_under_investigation_and_are_serving_their_sentence=int(object.They_are_under_investigation_and_are_serving_their_sentence),
+                They_take_care_of_sick_relatives=int(object.They_take_care_of_sick_relatives),
+                Registered_in_employment_centers_as_unemployed=int(object.Registered_in_employment_centers_as_unemployed),
+                Have_moved_outside_the_Russian_Federation=int(object.Have_moved_outside_the_Russian_Federation),
+                They_do_not_plan_to_get_a_job_including=int(object.They_do_not_plan_to_get_a_job_including),
+                Severe_health_condition_that_does_not_allow_employment_death=int(object.Severe_health_condition_that_does_not_allow_employment_death),
+                Other_reasons_for_being_at_risk_of_disability=int(object.Other_reasons_for_being_at_risk_of_disability)
+            )
+        else:
+            self.data_other_denamic[data].add_data(
+                The_total_output=int(object.The_total_output),
+                Employed=int(object.Employed),
+                of_these_employed_in_their_profession_specialty=int(object.of_these_employed_in_their_profession_specialty),
+                Registered_as_an_individual_entrepreneur_or_self_employed=int(object.Registered_as_an_individual_entrepreneur_or_self_employed),
+                They_will_be_employed=int(object.They_will_be_employed),
+                of_these_they_will_be_employed_in_their_profession_specialty=int(object.of_these_they_will_be_employed_in_their_profession_specialty),
+                They_plan_to_register_as_an_individual=int(object.They_plan_to_register_as_an_individual),
+                They_have_continued_their_studies_and_have_not_found_a_job=int(object.They_have_continued_their_studies_and_have_not_found_a_job),
+                Drafted_into_the_Armed_Forces_of_the_Russian_Federation=int(object.Drafted_into_the_Armed_Forces_of_the_Russian_Federation),
+                Are_on_parental_leave=int(object.Are_on_parental_leave),
+                They_are_under_investigation_and_are_serving_their_sentence=int(object.They_are_under_investigation_and_are_serving_their_sentence),
+                They_take_care_of_sick_relatives=int(object.They_take_care_of_sick_relatives),
+                Registered_in_employment_centers_as_unemployed=int(object.Registered_in_employment_centers_as_unemployed),
+                Have_moved_outside_the_Russian_Federation=int(object.Have_moved_outside_the_Russian_Federation),
+                They_do_not_plan_to_get_a_job_including=int(object.They_do_not_plan_to_get_a_job_including),
+                Severe_health_condition_that_does_not_allow_employment_death=int(object.Severe_health_condition_that_does_not_allow_employment_death),
+                Other_reasons_for_being_at_risk_of_disability=int(object.Other_reasons_for_being_at_risk_of_disability)
+            )
+    
     def load_data(self):
         temp_data = self.select_data(table=Data_employment_orm)
         for row_temp_data in temp_data:
             self.data_sort_base[row_temp_data.data] = self.select_data_filter(row_temp_data.data, Employment_orm)
         for data in self.data_sort_base:
-            for object in self.data_sort_base[data]:
-                self.data_sort_spec[object.The_code_and_name_of_the_profession_specialty] = spec_data_employment(
-                    The_total_output=object.The_total_output,
-                    Employed=object.Employed,
-                    of_these_employed_in_their_profession_specialty=object.of_these_employed_in_their_profession_specialty,
-                    Registered_as_an_individual_entrepreneur_or_self_employed=object.Registered_as_an_individual_entrepreneur_or_self_employed,
-                    They_will_be_employed=object.They_will_be_employed,
-                    of_these_they_will_be_employed_in_their_profession_specialty=object.of_these_they_will_be_employed_in_their_profession_specialty,
-                    They_plan_to_register_as_an_individual=object.They_plan_to_register_as_an_individual,
-                    They_have_continued_their_studies_and_have_not_found_a_job=object.They_have_continued_their_studies_and_have_not_found_a_job,
-                    Drafted_into_the_Armed_Forces_of_the_Russian_Federation=object.Drafted_into_the_Armed_Forces_of_the_Russian_Federation,
-                    Are_on_parental_leave=object.Are_on_parental_leave,
-                    They_are_under_investigation_and_are_serving_their_sentence=object.They_are_under_investigation_and_are_serving_their_sentence,
-                    They_take_care_of_sick_relatives=object.They_take_care_of_sick_relatives,
-                    Registered_in_employment_centers_as_unemployed=object.Registered_in_employment_centers_as_unemployed,
-                    Have_moved_outside_the_Russian_Federation=object.Have_moved_outside_the_Russian_Federation,
-                    They_do_not_plan_to_get_a_job_including=object.They_do_not_plan_to_get_a_job_including,
-                    Severe_health_condition_that_does_not_allow_employment_death=object.Severe_health_condition_that_does_not_allow_employment_death,
-                    Other_reasons_for_being_at_risk_of_disability=object.Other_reasons_for_being_at_risk_of_disability
-                )
-            self.data_sort_spec_data[data]=self.data_sort_spec
-        pass
-        
             
-test = data_employment_dynamics()
-test.load_data()
+            for object in self.data_sort_base[data]:
+                self.add_sort_spech(data,object)
+                self.add_sort_data(data,object)
+                
+            self.data_spec_data[data]=self.data_sort_spec
+            
+            

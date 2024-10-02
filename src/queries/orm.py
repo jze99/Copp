@@ -1,4 +1,4 @@
-from database import sync_engine, async_engine, sync_sassion, Base
+from src.database import sync_engine, async_engine, sync_sassion, Base
 
 class orm_data_functions:
     def __init__(self):

@@ -1,6 +1,6 @@
 from sqlalchemy import Table, Column, Integer, ForeignKey, MetaData
 from sqlalchemy.orm import Mapped, mapped_column
-from database import Base
+from src.database import Base
 from typing import Optional, Annotated
 
 intpk = Annotated[int, mapped_column(primary_key=True)]
