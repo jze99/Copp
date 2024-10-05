@@ -6,74 +6,77 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 
-from src.data_temp import  data_employment_dynamics
+from src.data_temp import  data_employment_dynamics,data_FPM_dinamics
 
 
 
-class _create_xlsx:
-    
-    @classmethod
-    def create_file(cls):
-        wb = Workbook()
-        sheet = wb.active
-
+class create_xlsx_FPM_POO:
+    def __init__(self):
+        pass
+        self.wb = Workbook()
+        self.ws = self.wb.active
+        self.temp = data_FPM_dinamics()
+        self.temp.load_data()
+        
+    def add_data_POO(self):
         column_table = 1
         row_table = 1
-        for idata ,data in enumerate(other_data.model_data, start=1):
-            sheet.merge_cells(start_row=row_table, end_row=row_table, start_column=column_table, end_column=column_table+5)
-            sheet.cell(row=row_table,column=column_table).alignment = Alignment(horizontal='center', vertical='center')
-            sheet.cell(row=row_table, column=column_table).value = data
+        for idata ,data in enumerate(self.temp.model_data, start=1):
+            self.ws.merge_cells(start_row=row_table, end_row=row_table, start_column=column_table, end_column=column_table+5)
+            self.ws.cell(row=row_table,column=column_table).alignment = Alignment(horizontal='center', vertical='center')
+            self.ws.cell(row=row_table, column=column_table).value = data
             row_table+=1
             #sheet.append(["ПОО", "Сумма","проходят производственную практику","будут проходить производственную практику","трудоустроены на предприятие","Всего"])
-            sheet.cell(row=row_table, column=column_table).value = "ПОО"
-            sheet.cell(row=row_table, column=column_table+1).value = "Сумма"
-            sheet.cell(row=row_table, column=column_table+2).value = "проходят производственную практику"
-            sheet.cell(row=row_table, column=column_table+3).value = "будут проходить производственную практику"
-            sheet.cell(row=row_table, column=column_table+4).value = "трудоустроены на предприятие"
-            sheet.cell(row=row_table, column=column_table+5).value = "Всего"
+            self.ws.cell(row=row_table, column=column_table).value = "ПОО"
+            self.ws.cell(row=row_table, column=column_table+1).value = "Сумма"
+            self.ws.cell(row=row_table, column=column_table+2).value = "проходят производственную практику"
+            self.ws.cell(row=row_table, column=column_table+3).value = "будут проходить производственную практику"
+            self.ws.cell(row=row_table, column=column_table+4).value = "трудоустроены на предприятие"
+            self.ws.cell(row=row_table, column=column_table+5).value = "Всего"
             row_table+=1
             
-            for imodel, model in enumerate(other_data.model_data[data], start=3):
-                temp_model = other_data.model_data[data][model]
-                sheet.cell(row=row_table, column=column_table).value = temp_model.poo
-                sheet.cell(row=row_table, column=column_table+1).value = temp_model.summ
-                sheet.cell(row=row_table, column=column_table+2).value = temp_model.undergoing_production_practice
-                sheet.cell(row=row_table, column=column_table+3).value = temp_model.will_undergo_production_internship
-                sheet.cell(row=row_table, column=column_table+4).value = temp_model.employed_by_company
-                sheet.cell(row=row_table, column=column_table+5).value = temp_model.total
+            for imodel, model in enumerate(self.temp.model_data[data], start=3):
+                temp_model = self.temp.model_data[data][model]
+                self.ws.cell(row=row_table, column=column_table).value = temp_model.poo
+                self.ws.cell(row=row_table, column=column_table+1).value = temp_model.summ
+                self.ws.cell(row=row_table, column=column_table+2).value = temp_model.undergoing_production_practice
+                self.ws.cell(row=row_table, column=column_table+3).value = temp_model.will_undergo_production_internship
+                self.ws.cell(row=row_table, column=column_table+4).value = temp_model.employed_by_company
+                self.ws.cell(row=row_table, column=column_table+5).value = temp_model.total
                 row_table+=1
                 pass
-            
-        column_table+=8
+        
+    def add_data_FPM(self):
+        column_table=10
         row_table = 1
         
-        sheet.cell(row=row_table, column=column_table).value = "дата"
-        sheet.cell(row=row_table+1, column=column_table).value = "Сумма"
-        sheet.cell(row=row_table+2, column=column_table).value = "проходят производственную практику"
-        sheet.cell(row=row_table+3, column=column_table).value = "будут проходить производственную практику"
-        sheet.cell(row=row_table+4, column=column_table).value = "трудоустроены на предприятие"
-        sheet.cell(row=row_table+5, column=column_table).value = "Всего"
+        self.ws.cell(row=row_table, column=column_table).value = "дата"
+        self.ws.cell(row=row_table+1, column=column_table).value = "Сумма"
+        self.ws.cell(row=row_table+2, column=column_table).value = "проходят производственную практику"
+        self.ws.cell(row=row_table+3, column=column_table).value = "будут проходить производственную практику"
+        self.ws.cell(row=row_table+4, column=column_table).value = "трудоустроены на предприятие"
+        self.ws.cell(row=row_table+5, column=column_table).value = "Всего"
         
         column_table+=1
         
-        for idata, data in enumerate(other_data.poo_dinamics,start=1):
-            for idinamic, dinamic in enumerate(other_data.poo_dinamics[data], start=1):
-                sheet.cell(row=row_table, column=column_table).value = data
-                sheet.cell(row=row_table+1, column=column_table).value = dinamic.summ
-                sheet.cell(row=row_table+2, column=column_table).value = dinamic.undergoing_production_practice
-                sheet.cell(row=row_table+3, column=column_table).value = dinamic.will_undergo_production_internship
-                sheet.cell(row=row_table+4, column=column_table).value = dinamic.employed_by_company
-                sheet.cell(row=row_table+5, column=column_table).value = dinamic.total
+        for idata, data in enumerate(self.temp.poo_dinamics,start=1):
+            for idinamic, dinamic in enumerate(self.temp.poo_dinamics[data], start=1):
+                self.ws.cell(row=row_table, column=column_table).value = data
+                self.ws.cell(row=row_table+1, column=column_table).value = dinamic.summ
+                self.ws.cell(row=row_table+2, column=column_table).value = dinamic.undergoing_production_practice
+                self.ws.cell(row=row_table+3, column=column_table).value = dinamic.will_undergo_production_internship
+                self.ws.cell(row=row_table+4, column=column_table).value = dinamic.employed_by_company
+                self.ws.cell(row=row_table+5, column=column_table).value = dinamic.total
                 column_table+=1
-            
-            
-        wb.save("example.xlsx")
+        
+    def create_file(self):
+        self.add_data_POO()
+        self.add_data_FPM()
+        self.wb.save("example_FPM_POO.xlsx")
 
-#create_xlsx.create_file()
 
-class create_xlsx:
-    temp = data_employment_dynamics()
-    temp.load_data()
+
+class create_xlsx_Employment:
     def __init__(self):
         self.wb = Workbook()
         self.ws = self.wb.active
@@ -124,8 +127,7 @@ class create_xlsx:
                 self.ws.cell(row=irow, column=icolumn+15).value=self.temp.data_spec_data[data][object].They_do_not_plan_to_get_a_job_including
                 self.ws.cell(row=irow, column=icolumn+16).value=self.temp.data_spec_data[data][object].Severe_health_condition_that_does_not_allow_employment_death
                 self.ws.cell(row=irow, column=icolumn+17).value=self.temp.data_spec_data[data][object].Other_reasons_for_being_at_risk_of_disability
-                irow+=1
-                
+                irow+=1             
                 
     def add_data_dinamic(self):
         irow=1
@@ -171,11 +173,12 @@ class create_xlsx:
             self.ws.cell(row=irow+17, column=icolumn).value=self.temp.data_other_denamic[data].Other_reasons_for_being_at_risk_of_disability
             icolumn+=1
     
-    def create_file_employment(self):
+    def create_file(self):
         self.add_data_spec_data()
         self.add_data_dinamic()
-        self.wb.save("emplore.xlsx")
+        self.wb.save("example_employment.xlsx")
                 
-test = create_xlsx()
-test.create_file_employment()
-pass
+temp1 = create_xlsx_FPM_POO()
+temp1.create_file()
+temp2 = create_xlsx_Employment()
+temp2.create_file()

@@ -1,5 +1,5 @@
 from src.queries.orm import orm_data_functions
-from src.models import Data_employment_orm, Employment_orm
+from src.models import Data_employment_orm, Employment_orm,Data_FPM_POO_orm,FPM_POO_orm
 
 class data_dynamics:
     def __init__(self,summ:int,undergoing_production_practice:int,will_undergo_production_internship:int,employed_by_company:int,total:int,data:str):
@@ -41,90 +41,78 @@ class data_FPM_POO:
     
     def sort_poo(self):
         pass
-
-
-#class other_data(orm_data_functions):
-#    poo_data_time_filter={}
-#    model_data={}
-#    #model_data_poo={}
-#    poo_dinamics={}
-#
-#
-#    @classmethod
-#    def validate_data_or_none(cls,data):
-#        if (data != 'None'):
-#            return data
-#        else:
-#            return 0
-#    
-#    
-#    @classmethod
-#    def load_data(cls): 
-#        temp_data = select_data()
-#        for data in temp_data:
-#            other_data.poo_data_time_filter[data.data] = select_data_filter(data_time=data.data)
-#            
-#        other_data.filter_data()
-#     
-#     
-#    @classmethod   
-#    def filter_data(cls):
-#        for data in other_data.poo_data_time_filter:
-#            other_data.model_data[data] = other_data.create_model_data_poo(data=data)
-#            other_data.poo_dinamics[data] = other_data.crate_model_data_dinamic(data=data)
-#        pass
-#            
-#            
-#    @classmethod
-#    def create_model_data_poo(cls, data):
-#        model_data_poo={}    
-#        for model in other_data.poo_data_time_filter[data]:
-#            if model.poo not in model_data_poo:
-#                model_data_poo[model.poo] = data_FPM_POO(
-#                    poo=model.poo,
-#                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
-#                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
-#                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
-#                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
-#                    total=int(other_data.validate_data_or_none(model.total)),
-#                    data=model.data
-#                )
-#            else:
-#                model_data_poo[model.poo].summ_data(
-#                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
-#                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
-#                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
-#                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
-#                    total=int(other_data.validate_data_or_none(model.total)),
-#                )
-#        return model_data_poo
-#        
-#    
-#    @classmethod
-#    def crate_model_data_dinamic(cls,data):   
-#        model_data_poo={}
-#        for model in other_data.poo_data_time_filter[data]:
-#            if data not in model_data_poo:
-#                model_data_poo[data] = data_dynamics(
-#                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
-#                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
-#                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
-#                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
-#                    total=int(other_data.validate_data_or_none(model.total)),
-#                    data=model.data
-#                )
-#            else:
-#                model_data_poo[data].summ_data(
-#                    summ=(int(other_data.validate_data_or_none(model.undergoing_production_practice)) + int(other_data.validate_data_or_none(model.will_undergo_production_internship)) + int(other_data.validate_data_or_none(model.employed_by_company)) + int(other_data.validate_data_or_none(model.total))),
-#                    undergoing_production_practice=int(other_data.validate_data_or_none(model.undergoing_production_practice)),
-#                    will_undergo_production_internship=int(other_data.validate_data_or_none(model.will_undergo_production_internship)),
-#                    employed_by_company=int(other_data.validate_data_or_none(model.employed_by_company)),
-#                    total=int(other_data.validate_data_or_none(model.total))
-#                )
-#        mode_ret = []
-#        for mode in model_data_poo:
-#            mode_ret.append(model_data_poo[mode])
-#        return mode_ret
+    
+class data_FPM_dinamics(orm_data_functions):
+    def __init__(self):
+        self.poo_data_time_filter={}
+        self.model_data={}
+        self.poo_dinamics={}
+    
+    def validate_data_or_none(self,data):
+        if (data != 'None'):
+            return data
+        else:
+            return 0
+     
+    def load_data(self): 
+        temp_data = self.select_data(table=Data_FPM_POO_orm)
+        for data in temp_data:
+            self.poo_data_time_filter[data.data] = self.select_data_filter(data_time=data.data, tabel=FPM_POO_orm)  
+        self.filter_data()
+       
+    def filter_data(self):
+        for data in self.poo_data_time_filter:
+            self.model_data[data] = self.create_model_data_poo(data=data)
+            self.poo_dinamics[data] = self.crate_model_data_dinamic(data=data)
+        pass
+            
+    def create_model_data_poo(self, data):
+        model_data_poo={}    
+        for model in self.poo_data_time_filter[data]:
+            if model.poo not in model_data_poo:
+                model_data_poo[model.poo] = data_FPM_POO(
+                    poo=model.poo,
+                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.will_undergo_production_internship)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
+                    undergoing_production_practice=int(self.validate_data_or_none(model.undergoing_production_practice)),
+                    will_undergo_production_internship=int(self.validate_data_or_none(model.will_undergo_production_internship)),
+                    employed_by_company=int(self.validate_data_or_none(model.employed_by_company)),
+                    total=int(self.validate_data_or_none(model.total)),
+                    data=model.data
+                )
+            else:
+                model_data_poo[model.poo].summ_data(
+                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.will_undergo_production_internship)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
+                    undergoing_production_practice=int(self.validate_data_or_none(model.undergoing_production_practice)),
+                    will_undergo_production_internship=int(self.validate_data_or_none(model.will_undergo_production_internship)),
+                    employed_by_company=int(self.validate_data_or_none(model.employed_by_company)),
+                    total=int(self.validate_data_or_none(model.total)),
+                )
+        return model_data_poo
+    
+    def crate_model_data_dinamic(self,data):   
+        model_data_poo={}
+        for model in self.poo_data_time_filter[data]:
+            if data not in model_data_poo:
+                model_data_poo[data] = data_dynamics(
+                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.will_undergo_production_internship)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
+                    undergoing_production_practice=int(self.validate_data_or_none(model.undergoing_production_practice)),
+                    will_undergo_production_internship=int(self.validate_data_or_none(model.will_undergo_production_internship)),
+                    employed_by_company=int(self.validate_data_or_none(model.employed_by_company)),
+                    total=int(self.validate_data_or_none(model.total)),
+                    data=model.data
+                )
+            else:
+                model_data_poo[data].summ_data(
+                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.will_undergo_production_internship)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
+                    undergoing_production_practice=int(self.validate_data_or_none(model.undergoing_production_practice)),
+                    will_undergo_production_internship=int(self.validate_data_or_none(model.will_undergo_production_internship)),
+                    employed_by_company=int(self.validate_data_or_none(model.employed_by_company)),
+                    total=int(self.validate_data_or_none(model.total))
+                )
+        mode_ret = []
+        for mode in model_data_poo:
+            mode_ret.append(model_data_poo[mode])
+        return mode_ret
 
 class spec_data_employment:
     def __init__(
