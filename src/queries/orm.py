@@ -20,6 +20,14 @@ class orm_data_functions:
             query = session.query(tabel).filter(tabel.data == data_time)
             result = session.execute(query)
             return result.scalars().all()
+    
+    #def select_data_filter_two(self,data)
+    
+    def select_user(self, tabel, login: str, passw: str):
+        with sync_sassion() as session:
+            query = session.query(tabel).filter(tabel.username == login, tabel.password == passw)
+            result = session.execute(query)
+            return result.scalars().all()
         
     def select_data(self,table:Base):
         with sync_sassion() as session:

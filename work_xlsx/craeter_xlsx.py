@@ -5,10 +5,8 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-
+from config import path_data
 from src.data_temp import  data_employment_dynamics,data_FPM_dinamics
-
-
 
 class create_xlsx_FPM_POO:
     def __init__(self):
@@ -72,9 +70,7 @@ class create_xlsx_FPM_POO:
     def create_file(self):
         self.add_data_POO()
         self.add_data_FPM()
-        self.wb.save("example_FPM_POO.xlsx")
-
-
+        self.wb.save(path_data.path_save_FPM_POO)
 
 class create_xlsx_Employment:
     def __init__(self):
@@ -176,7 +172,7 @@ class create_xlsx_Employment:
     def create_file(self):
         self.add_data_spec_data()
         self.add_data_dinamic()
-        self.wb.save("example_employment.xlsx")
+        self.wb.save(path_data.path_save_employment)
                 
 temp1 = create_xlsx_FPM_POO()
 temp1.create_file()

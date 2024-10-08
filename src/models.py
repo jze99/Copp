@@ -1,5 +1,5 @@
-from sqlalchemy import Table, Column, Integer, ForeignKey, MetaData
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Table, Column, Integer, ForeignKey,Index,ForeignKeyConstraint, MetaData, String,PrimaryKeyConstraint,UniqueConstraint,DateTime
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.database import Base
 from typing import Optional, Annotated
 
@@ -145,10 +145,26 @@ class Employment_orm(Base):
     Measures_taken:Mapped[str]=mapped_column(nullable=True)#77
     The_main_partner_enterprises_that_employ_graduates:Mapped[str]=mapped_column(nullable=True)#78  
     data:Mapped[str]#79                                                                                       
-    
 
-class resumes(Base):
-    __tablename__ = "resume"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    title:Mapped[str]
-    compens:Mapped[Optional[int]]
+class User(Base):
+    __tablename__ = 'users'
+    id:Mapped[intpk]
+    username:Mapped[str] = mapped_column(String(100), nullable=False)    
+    password:Mapped[str] = mapped_column(String(200), nullable=False)
+    
+    __table_args__ = (
+        PrimaryKeyConstraint('id', name='user_pk'),
+        UniqueConstraint('username')
+    )
+
+
+class Post(Base):
+    __tablename__ = 'posts'
+    id:Mapped[intpk]
+    title:Mapped[str] = mapped_column(String(100), nullable=False)
+    username:Mapped[str] = mapped_column(String(200), nullable=False)
+    
+    __table_args__ = (
+        ForeignKeyConstraint(['username'], ['users.username']),        
+        Index('title_content_index', 'title') # composite index on title and content   
+    )

@@ -1,9 +1,12 @@
-import os
 import sys
-sys.path.insert(1,os.path.join(sys.path[0],'..'))
+import os
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
 import openpyxl
-from models import FPM_POO_orm,Employment_orm
-from queries.orm import orm_data_functions
+from src.models import FPM_POO_orm,Employment_orm,User_application,User_active
+from src.queries.orm import orm_data_functions
+from src.config import path_data
 
 class validate_data(orm_data_functions):
     
@@ -30,7 +33,7 @@ class validate_data(orm_data_functions):
 
 class craete_data_base_xlsx(validate_data):
     
-    def add_OPK(self, path:str):
+    def add_FPM_POO(self, path:str=path_data.path_load_FPM_POO):
         temp_mass=[]
         xlsx=self.read_xlsx_file("ОПК РАБОЧИЙ (июль 2024).xlsx")
         for ixl,xl in enumerate(xlsx):
@@ -69,7 +72,7 @@ class craete_data_base_xlsx(validate_data):
 
         return temp_mass
     
-    def add_workers(self, path:str="Трудоустройство общий.xlsx"):
+    def add_Employment(self, path:str=path_data.path_load_employment):
         temp_mass=[]
         xlsx=self.read_xlsx_file(path,sheet="2024")
         for ixl,xl in enumerate(xlsx):
@@ -160,6 +163,6 @@ class craete_data_base_xlsx(validate_data):
 
         return temp_mass
     
-test = craete_data_base_xlsx()
-test.insert_data(data=test.add_workers())
-pass
+#test = craete_data_base_xlsx()
+#test.insert_data(data=test.add_workers())
+

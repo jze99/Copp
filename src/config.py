@@ -18,5 +18,11 @@ class Settings(BaseSettings):
     
     #model_conf= SettingsConfigDict(env_file=".env")
 
+class path_data:
+    path_save_FPM_POO:str = "example_FPM_POO.xlsx"
+    path_save_employment:str = "example_employment.xlsx"
+    path_load_FPM_POO:str = ""
+    path_load_employment:str = ""
+
 # Load settings from .env file
 settings = Settings()
