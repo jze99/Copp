@@ -50,6 +50,7 @@ class test_page:
             ],
             bgcolor=design.color["Rodeo Dust"],
             scroll=True,
+            
         )
     
     def return_page(self):

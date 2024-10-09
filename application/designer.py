@@ -46,6 +46,25 @@ class Button(ft.ElevatedButton):
             )
         )
 
+class TextFielDirectory(ft.TextField):
+    def __init__(self,text_size:int=40,help_text:str=""):
+        super().__init__(
+            #expand=True,
+            width=400,
+            dense=True,
+            color=design.color["White Rock"],
+            border_color=design.color["Nevada"],
+            text_size=text_size,
+            cursor_color=design.color["Nevada"],
+            hint_text=help_text,
+            text_style=ft.TextStyle(
+                color=design.color["White Rock"]
+            )
+        )
+        
+    def file_picer(self):
+        pass
+
 #Имя: Remedy
 #Идентификатор: robertrossmann.remedy
 #Описание: A dark & bright theme with orange accents with roots in Base16 - Eighties colour theme
