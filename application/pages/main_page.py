@@ -18,23 +18,48 @@ class main_page:
         
         
         self.main_page=ft.Column(
-            #expand=True,
+
             controls=[
                 ft.Row(
-                    #expand=True,
+                    expand=True,
                     controls=[
-                        ft.Column(
+                        ft.Container(
                             expand=True,
-                            controls=[
-                                ft.Container(
-                                    bgcolor="#FFFFFF",
-                                    width=100,
-                                    height=100,
-                                )
-                            ]
+                            padding=ft.padding.all(0),
+                            bgcolor=design.color["Wafer"],
+                            content=ft.Column(
+                                
+                                controls=[
+                                    ft.Row(
+                                        expand=True,
+                                        controls=[
+                                            ft.TextButton(# кнопка для вкладки сохранить
+                                                icon=ft.icons.SAVE_AS_ROUNDED,
+                                                icon_color=design.color["Nevada"],
+                                                text="сохранить",
+                                                style=ft.ButtonStyle(
+                                                    icon_size=32,
+                                                    overlay_color=design.color["Nevada Lite"],
+                                                    color=design.color["Nevada"]
+                                                )
+                                            ),
+                                            ft.TextButton(# кнопка для вкладки выгрузить
+                                                icon=ft.icons.CLOUD_UPLOAD_ROUNDED,
+                                                icon_color=design.color["Nevada"],
+                                                text="выгрузить",
+                                                style=ft.ButtonStyle(
+                                                    icon_size=32,
+                                                    overlay_color=design.color["Nevada Lite"],
+                                                    color=design.color["Nevada"]
+                                                )
+                                            )
+                                        ]
+                                    )
+                                ]
+                            ),
                         ),
                         ft.Column(
-                            expand=True,
+                            expand=0.8,
                             controls=[
                                 ft.IconButton(
                                     icon=ft.icons.TABLE_ROWS_ROUNDED,
@@ -49,8 +74,8 @@ class main_page:
                                 )
                             ]
                         )
-                    ]
-                )
+                    ]    
+                ),
             ]
         )
     

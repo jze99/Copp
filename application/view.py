@@ -2,6 +2,7 @@ from flet import View
 from designer import design
 from pages.authorization import authorization
 from pages.main_page import main_page
+from pages.test_page import test_page
 def ViewsHendler(page):
     return{
         "/login":View(
@@ -19,5 +20,6 @@ def ViewsHendler(page):
             ],
             bgcolor=design.color["Rodeo Dust"],
             scroll=True,
-        )
+        ),
+        "/test":test_page(page=page).return_page()
     }

@@ -45,3 +45,9 @@ class Button(ft.ElevatedButton):
                 )
             )
         )
+
+#Имя: Remedy
+#Идентификатор: robertrossmann.remedy
+#Описание: A dark & bright theme with orange accents with roots in Base16 - Eighties colour theme
+#Версия: 5.27.0
+#Издатель: Robert Rossmann
