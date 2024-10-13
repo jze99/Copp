@@ -4,20 +4,20 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 import openpyxl
-from src.models import FPM_POO_orm,Employment_orm,User_application,User_active
+from src.models import FPM_POO_orm, Employment_orm,Data_FPM_POO_orm
 from src.queries.orm import orm_data_functions
 from src.config import path_data
 
 class validate_data(orm_data_functions):
     
-    def read_xlsx_file(self,file_path:str,sheet:str):
-        wb = openpyxl.load_workbook(file_path)
+    def read_xlsx_file(self,path:str,sheet:str):
+        wb = openpyxl.load_workbook(path)
         sheet = wb[sheet]
 
         # Initialize an empty list to store the data
         data = []
         for irow, row in enumerate(sheet.iter_rows(values_only=True),start=1):
-            if row[1] == None or irow ==1 or irow==2:
+            if row[1] == None:
                 continue
             data.append(list(row))
         return data
@@ -31,13 +31,13 @@ class validate_data(orm_data_functions):
         elif noneble == True:
             return None
 
-class craete_data_base_xlsx(validate_data):
+class craete_data_base_xlsx(validate_data):    
     
-    def add_FPM_POO(self, path:str=path_data.path_load_FPM_POO):
+    def add_FPM_POO(self, path:str="", sheet:str=""):
         temp_mass=[]
-        xlsx=self.read_xlsx_file("ОПК РАБОЧИЙ (июль 2024).xlsx")
+        xlsx=self.read_xlsx_file(path=path, sheet=sheet)
         for ixl,xl in enumerate(xlsx):
-            if ixl == 0:
+            if ixl == 0 or ixl == 1:
                 continue
             temp=FPM_POO_orm(
                 poo=str(xl[0]),#ПОО
@@ -70,7 +70,9 @@ class craete_data_base_xlsx(validate_data):
             )
             temp_mass.append(temp)
 
-        return temp_mass
+        self.insert_data(temp_mass)
+        self.insert_data(data=[Data_FPM_POO_orm(data=str(xlsx[2][20]))])
+        pass
     
     def add_Employment(self, path:str=path_data.path_load_employment):
         temp_mass=[]
@@ -164,5 +166,5 @@ class craete_data_base_xlsx(validate_data):
         return temp_mass
     
 #test = craete_data_base_xlsx()
-#test.insert_data(data=test.add_workers())
+#test.create_table([FPM_POO_orm.__table__,Data_FPM_POO_orm.__table__])
 

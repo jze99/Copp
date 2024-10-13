@@ -9,7 +9,7 @@ class orm_data_functions:
         end_month, end_year = map(int, end.split('.'))
         return (date_column >= f'{start_month}.{start_year}') & (date_column <= f'{end_month}.{end_year}')
     
-    def create_user(self,tables=[]):
+    def create_table(self,tables=[]):
         with sync_sassion() as session:
             Base.metadata.drop_all(sync_engine,tables=tables)
             Base.metadata.create_all(sync_engine, tables=tables)

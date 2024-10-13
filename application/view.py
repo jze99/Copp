@@ -21,5 +21,12 @@ def ViewsHendler(page):
             bgcolor=design.color["Rodeo Dust"],
             scroll=True,
         ),
-        "/test":test_page(page=page).return_page()
+        "/test":View(
+            route="/test",
+            controls=[
+                test_page(page=page).return_page(),
+            ],
+            bgcolor=design.color["Rodeo Dust"],
+            scroll=True,
+        ),
     }
