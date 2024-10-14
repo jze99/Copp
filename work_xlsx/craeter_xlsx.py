@@ -5,10 +5,9 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from config import path_data
 from src.data_temp import  data_employment_dynamics,data_FPM_dinamics
 
-class create_xlsx_FPM_POO:
+class create_xlsx_OPK_POO:
     def __init__(self):
         pass
         self.wb = Workbook()
@@ -67,10 +66,11 @@ class create_xlsx_FPM_POO:
                 self.ws.cell(row=row_table+5, column=column_table).value = dinamic.total
                 column_table+=1
         
-    def create_file(self):
+    def create_file(self, path):
+        path=os.path.join(path,"OPC_POO.xlsx")
         self.add_data_POO()
         self.add_data_FPM()
-        self.wb.save(path_data.path_save_FPM_POO)
+        self.wb.save(path)
 
 class create_xlsx_Employment:
     def __init__(self):
@@ -169,12 +169,13 @@ class create_xlsx_Employment:
             self.ws.cell(row=irow+17, column=icolumn).value=self.temp.data_other_denamic[data].Other_reasons_for_being_at_risk_of_disability
             icolumn+=1
     
-    def create_file(self):
+    def create_file(self, path:str=""):
+        path=os.path.join(path,"Employment.xlsx")
         self.add_data_spec_data()
         self.add_data_dinamic()
-        self.wb.save(path_data.path_save_employment)
+        self.wb.save(path)
                 
-temp1 = create_xlsx_FPM_POO()
-temp1.create_file()
-temp2 = create_xlsx_Employment()
-temp2.create_file()
+#temp1 = create_xlsx_FPM_POO()
+#temp1.create_file()
+#temp2 = create_xlsx_Employment()
+#temp2.create_file()

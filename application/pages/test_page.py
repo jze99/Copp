@@ -45,7 +45,7 @@ class test_page:
                 ft.Row(
                     controls=[
                         text_button(
-                            on_clic=self.button_upload_opk_poo,
+                            on_clic=self.button_save_opk_poo,
                             icon=ft.icons.OTHER_HOUSES_ROUNDED,
                             text="сохранить опк поо"
                         )
@@ -54,7 +54,7 @@ class test_page:
                 ft.Row(
                     controls=[
                         text_button(
-                            on_clic=self.button_upload_employment,
+                            on_clic=self.button_save_employment,
                             icon=ft.icons.PEOPLE_ALT_ROUNDED,
                             text="сохранить рабочих"
                         )
@@ -106,27 +106,37 @@ class test_page:
             ]
         )
     
-    def button_upload_employment(self,e):
-        pass
+    def button_save_employment(self,e):
+        from designer import save_Employment
+        self.view_work.content=save_Employment(
+                text="сохранить рабочих",
+                file_picer=self.file_picer,
+            )
+        self.view_work.update()
         
-    def button_upload_opk_poo(self,e):
-        from designer import load_OPK_POO
-        self.view_work.content=load_OPK_POO(
+    def button_save_opk_poo(self,e):
+        from designer import save_OPK_POO
+        self.view_work.content=save_OPK_POO(
                 text="сохранить опк поо",
                 file_picer=self.file_picer,
             )
         self.view_work.update()
-    
+        pass
     
     
     def button_load_employment(self,e):
-        pass
+        from designer import load_Employment
+        self.view_work.content=load_Employment(
+                text="загрузить рабочих",
+                file_picer_derictory=self.file_picer,
+            )
+        self.view_work.update()
         
     def button_load_opk_poo(self,e):
         from designer import load_OPK_POO
         self.view_work.content=load_OPK_POO(
                 text="загрузить опк поо",
-                file_picer=self.file_picer,
+                file_picer_derictory=self.file_picer,
             )
         self.view_work.update()
     

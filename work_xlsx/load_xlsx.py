@@ -4,7 +4,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 import openpyxl
-from src.models import FPM_POO_orm, Employment_orm,Data_FPM_POO_orm
+from src.models import FPM_POO_orm, Employment_orm,Data_FPM_POO_orm,Data_employment_orm
 from src.queries.orm import orm_data_functions
 from src.config import path_data
 
@@ -74,9 +74,9 @@ class craete_data_base_xlsx(validate_data):
         self.insert_data(data=[Data_FPM_POO_orm(data=str(xlsx[2][20]))])
         pass
     
-    def add_Employment(self, path:str=path_data.path_load_employment):
+    def add_Employment(self, sheet:str="", path:str=""):
         temp_mass=[]
-        xlsx=self.read_xlsx_file(path,sheet="2024")
+        xlsx=self.read_xlsx_file(path,sheet=sheet)
         for ixl,xl in enumerate(xlsx):
             if ixl == 0 or ixl == 1:
                 continue
@@ -159,12 +159,13 @@ class craete_data_base_xlsx(validate_data):
                 Other_reasons=self.onli_data(xl[75],True),
                 Measures_taken=self.onli_data(xl[76], True),
                 The_main_partner_enterprises_that_employ_graduates=self.onli_data(xl[77],True),
-                date=self.onli_data(xl[78]),
+                data=self.onli_data(xl[78]),
             )
             temp_mass.append(temp)
 
-        return temp_mass
+        self.insert_data(temp_mass)
+        self.insert_data(data=[Data_employment_orm(data=str(xlsx[2][78]))])
     
 #test = craete_data_base_xlsx()
-#test.create_table([FPM_POO_orm.__table__,Data_FPM_POO_orm.__table__])
+#test.create_table([Employment_orm.__table__,Data_employment_orm.__table__])
 
