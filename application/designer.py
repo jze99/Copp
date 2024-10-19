@@ -126,6 +126,14 @@ class logic_base():
             self.drop_down.value=self.drop_down.options[0].key
             self.drop_down.update()
    
+class time_picer(ft.TimePicker):
+    def __init__(self):
+        super().__init__(
+            confirm_text="Confirm",
+            error_invalid_text="Time out of range",
+            help_text="Pick your time slot",
+
+        )
    
 class save_OPK_POO(ft.Column, logic_base):
     def __init__(self, text:str="", file_picer:ft.FilePicker=ft.FilePicker()):
@@ -267,7 +275,7 @@ class load_Employment(ft.Column, logic_base):
                 ),
                 ft.Row(
                     controls=[
-
+                        time_picer()
                     ]
                 ),
                 ft.Row(
