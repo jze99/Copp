@@ -1,4 +1,5 @@
-from src.database import sync_engine, async_engine, sync_sassion, Base
+from src.database import sync_engine, sync_sassion, Base
+from sqlalchemy.future import select
 
 class orm_data_functions:
     def __init__(self):
@@ -29,14 +30,20 @@ class orm_data_functions:
             result = session.execute(query)
             return result.scalars().all()
         
-    def select_data(self,table:Base):
+    def select_data(self, table):
         with sync_sassion() as session:
-            query = session.query(table)
-            result = session.execute(query)
+            # Create a select query
+            stmt = select(table)
+            # Execute the query 
+            result = session.execute(stmt)
+            # Return the results
             return result.scalars().all()
     
-    def insert_data(self,data):
+    def insert_data(self, data):
         with sync_sassion() as session:
-            session.add_all(data)
-            session.commit()
+            try:
+                session.add_all(data)
+                session.commit()
+            except Exception as e:
+                session.commit()
     

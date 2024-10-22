@@ -269,11 +269,12 @@ class data_employment:
         self.Other_reasons_for_being_at_risk_of_disability+=Other_reasons_for_being_at_risk_of_disability
     
 class data_employment_dynamics(orm_data_functions):
-    def __init__(self):
+    def __init__(self, data):
         self.data_sort_base={}
         self.data_sort_spec={}
         self.data_other_denamic={}
         self.data_spec_data={}
+        self.data=data
         
     def add_sort_spech(self, data, object):
         if object.The_code_and_name_of_the_profession_specialty not in self.data_sort_spec:
@@ -360,9 +361,8 @@ class data_employment_dynamics(orm_data_functions):
             )
     
     def load_data(self):
-        temp_data = self.select_data(table=Data_employment_orm)
-        for row_temp_data in temp_data:
-            self.data_sort_base[row_temp_data.data] = self.select_data_filter(row_temp_data.data, Employment_orm)
+        for row_temp_data in self.data:
+            self.data_sort_base[row_temp_data] = self.select_data_filter(row_temp_data, Employment_orm)
         for data in self.data_sort_base:
             
             for object in self.data_sort_base[data]:

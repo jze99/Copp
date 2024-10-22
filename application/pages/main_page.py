@@ -6,14 +6,15 @@ import flet as ft
 from designer import text_button, design
 from src.queries.orm import orm_data_functions
 from src.models import User
+from user_data import data
 
 class main_page:
-    
+
     def __init__(self, page):        
         self.page = page
         self.file_picer = ft.FilePicker()
         self.page.overlay.append(self.file_picer)     
-        
+        self.data = data()
         
         self.view_work =  ft.Container(expand=True)
         
@@ -111,6 +112,7 @@ class main_page:
         self.view_work.content=save_Employment(
                 text="сохранить рабочих",
                 file_picer=self.file_picer,
+                
             )
         self.view_work.update()
         
@@ -119,6 +121,7 @@ class main_page:
         self.view_work.content=save_OPK_POO(
                 text="сохранить опк поо",
                 file_picer=self.file_picer,
+                
             )
         self.view_work.update()
         pass
@@ -129,6 +132,7 @@ class main_page:
         self.view_work.content=load_Employment(
                 text="загрузить рабочих",
                 file_picer_derictory=self.file_picer,
+                data=self.data
             )
         self.view_work.update()
         

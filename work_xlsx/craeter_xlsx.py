@@ -73,10 +73,10 @@ class create_xlsx_OPK_POO:
         self.wb.save(path)
 
 class create_xlsx_Employment:
-    def __init__(self):
+    def __init__(self, data):
         self.wb = Workbook()
         self.ws = self.wb.active
-        self.temp = data_employment_dynamics()
+        self.temp = data_employment_dynamics(data=data)
         self.temp.load_data()
     
     def add_data_spec_data(self):

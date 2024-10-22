@@ -6,7 +6,6 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import openpyxl
 from src.models import FPM_POO_orm, Employment_orm,Data_FPM_POO_orm,Data_employment_orm
 from src.queries.orm import orm_data_functions
-from src.config import path_data
 
 class validate_data(orm_data_functions):
     
@@ -75,6 +74,7 @@ class craete_data_base_xlsx(validate_data):
         pass
     
     def add_Employment(self, sheet:str="", path:str=""):
+        import asyncio
         temp_mass=[]
         xlsx=self.read_xlsx_file(path,sheet=sheet)
         for ixl,xl in enumerate(xlsx):

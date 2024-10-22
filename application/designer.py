@@ -1,5 +1,7 @@
 from typing import Callable, Any
 import flet as ft
+import asyncio
+
 
 class design:
     color = {
@@ -125,17 +127,28 @@ class logic_base():
             self.drop_down.options=self.read_sheet_file(e.files[0].path)
             self.drop_down.value=self.drop_down.options[0].key
             self.drop_down.update()
-   
-class time_picer(ft.TimePicker):
-    def __init__(self):
-        super().__init__(
-            confirm_text="Confirm",
-            error_invalid_text="Time out of range",
-            help_text="Pick your time slot",
-
-        )
+    
+    def parse_date(self,date_str):
+        import datetime
+        return datetime.datetime.strptime(date_str, "%d.%m.%Y")
+    
+    def filter_and_sort_dates(self, dates, start_date, end_date):
+       from datetime import datetime # Convert the start_date and end_date from strings to datetime objects
+       start_date = datetime.strptime(start_date, "%d.%m.%Y")
+       end_date = datetime.strptime(end_date, "%d.%m.%Y")
+    
+       # Convert the list of date strings to datetime objects 
+       date_objects = [datetime.strptime(date.text, "%d.%m.%Y") for date in dates]      
+       # Filter dates that fall within the start and end date range
+       filtered_dates = [date for date in date_objects if start_date <= date <= end_date]      
+       # Sort the filtered dates
+       sorted_dates = sorted(filtered_dates)       
+       # Convert sorted datetime objects back to strings
+       sorted_dates_str = [date.strftime("%d.%m.%Y") for date in sorted_dates]
+       return sorted_dates_str
    
 class save_OPK_POO(ft.Column, logic_base):
+    from user_data import data
     def __init__(self, text:str="", file_picer:ft.FilePicker=ft.FilePicker()):
         
         self.text_file_picer = TextFieldFilePicer()
@@ -191,6 +204,7 @@ class save_OPK_POO(ft.Column, logic_base):
         temp.add_FPM_POO(path=str(self.text_file_picer.value),sheet=self.drop_down.value)
     
 class save_Employment(ft.Column, logic_base):
+    from user_data import data
     def __init__(self, text:str="", file_picer:ft.FilePicker=ft.FilePicker()):
         
         self.text_file_picer = TextFieldFilePicer()
@@ -246,11 +260,15 @@ class save_Employment(ft.Column, logic_base):
         temp.add_Employment(path=str(self.text_file_picer.value),sheet=self.drop_down.value)
         
 class load_Employment(ft.Column, logic_base):
-    def __init__(self, text:str="", file_picer_derictory:ft.FilePicker=ft.FilePicker()):
+    from user_data import data
+    def __init__(self,data:data, text:str="", file_picer_derictory:ft.FilePicker=ft.FilePicker()):
         
         self.text_file_picer = TextFieldFilePicer()
-        #self.drop_down = DropDown()
-        
+        self.drop_down_ferst = DropDown()
+        self.drop_down_last = DropDown()
+        self._data_ = data
+        self.drop_down_last.options = data.fresh_data_time_employment
+        self.drop_down_ferst.options = data.fresh_data_time_employment
         file_picer_derictory.on_result = self.file_picer_result_derictory
         
         super().__init__(
@@ -275,7 +293,7 @@ class load_Employment(ft.Column, logic_base):
                 ),
                 ft.Row(
                     controls=[
-                        time_picer()
+                        self.drop_down_ferst,self.drop_down_last
                     ]
                 ),
                 ft.Row(
@@ -290,15 +308,20 @@ class load_Employment(ft.Column, logic_base):
                 )
             ]
         )
+       
+    def on_change_time_picer(self,e):
+        self.button_time_picer.text = f"{e.control.value.day}/{e.control.value.month}/{e.control.value.year}"
+        self.button_time_picer.update()
         
     def logic(self,e):
         from work_xlsx.craeter_xlsx import create_xlsx_Employment
-        temp = create_xlsx_Employment()
+        temp = create_xlsx_Employment(data=self.filter_and_sort_dates(self._data_.fresh_data_time_employment, start_date=self.drop_down_ferst.value, end_date=self.drop_down_last.value))
         temp.create_file(path=str(self.text_file_picer.value))
 
 class load_OPK_POO(ft.Column, logic_base):
     def __init__(self, text:str="", file_picer_derictory:ft.FilePicker=ft.FilePicker()):
-        
+        self.drop_down_ferst = DropDown()
+        self.drop_down_last = DropDown()
         self.text_file_picer = TextFieldFilePicer()
         #self.drop_down = DropDown()
         
@@ -326,7 +349,7 @@ class load_OPK_POO(ft.Column, logic_base):
                 ),
                 ft.Row(
                     controls=[
-
+                        self.drop_down_ferst,self.drop_down_last
                     ]
                 ),
                 ft.Row(
@@ -344,7 +367,7 @@ class load_OPK_POO(ft.Column, logic_base):
         
     def logic(self,e):
         from work_xlsx.craeter_xlsx import create_xlsx_OPK_POO
-        temp = create_xlsx_OPK_POO()
+        temp = create_xlsx_OPK_POO(data=self.filter_and_sort_dates(self._data_.fresh_data_time_opk_poo, start_date=self.drop_down_ferst.value, end_date=self.drop_down_last.value))
         temp.create_file(path=str(self.text_file_picer.value))
         
 #on_hover: type[Callable[[Any], Any]]
