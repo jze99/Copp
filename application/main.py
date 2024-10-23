@@ -10,6 +10,6 @@ def main(page: ft.Page):
         page.views.append(ViewsHendler(page=page)[page.route])
         page.update()
     page.on_route_change = PageLoading
-    page.go("/main")
+    page.go("/login")
     
 ft.app(target=main, assets_dir="assets")

@@ -163,7 +163,7 @@ class Post(Base):
     id:Mapped[intpk]
     title:Mapped[str] = mapped_column(String(100), nullable=False)
     username:Mapped[str] = mapped_column(String(200), nullable=False)
-    
+    data:Mapped[str]= mapped_column(String(100), nullable=False)
     __table_args__ = (
         ForeignKeyConstraint(['username'], ['users.username']),        
         Index('title_content_index', 'title') # composite index on title and content   

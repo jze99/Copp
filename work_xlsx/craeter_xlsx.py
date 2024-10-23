@@ -8,11 +8,11 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 from src.data_temp import  data_employment_dynamics,data_FPM_dinamics
 
 class create_xlsx_OPK_POO:
-    def __init__(self):
+    def __init__(self,data):
         pass
         self.wb = Workbook()
         self.ws = self.wb.active
-        self.temp = data_FPM_dinamics()
+        self.temp = data_FPM_dinamics(data=data)
         self.temp.load_data()
         
     def add_data_POO(self):

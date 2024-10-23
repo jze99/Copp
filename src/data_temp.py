@@ -43,10 +43,11 @@ class data_FPM_POO:
         pass
     
 class data_FPM_dinamics(orm_data_functions):
-    def __init__(self):
+    def __init__(self, data):
         self.poo_data_time_filter={}
         self.model_data={}
         self.poo_dinamics={}
+        self.data = data
     
     def validate_data_or_none(self,data):
         if (data != 'None'):
@@ -55,9 +56,9 @@ class data_FPM_dinamics(orm_data_functions):
             return 0
      
     def load_data(self): 
-        temp_data = self.select_data(table=Data_FPM_POO_orm)
-        for data in temp_data:
-            self.poo_data_time_filter[data.data] = self.select_data_filter(data_time=data.data, tabel=FPM_POO_orm)  
+        #temp_data = self.select_data(table=Data_FPM_POO_orm)
+        for data in self.data:
+            self.poo_data_time_filter[data] = self.select_data_filter(data_time=data, tabel=FPM_POO_orm)  
         self.filter_data()
        
     def filter_data(self):

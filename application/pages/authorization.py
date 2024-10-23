@@ -6,6 +6,7 @@ import flet as ft
 from designer import Text, TextField, Button
 from src.queries.orm import orm_data_functions
 from src.models import User
+from user_data import data
 
 class authorization:
     
@@ -34,6 +35,7 @@ class authorization:
         temp = orm_data_functions()
         user = temp.select_user(tabel=User, login=self.login.value, passw=self.password.value)
         if len(user) > 0:
+            data.user_name=self.login.value
             self.page.go("/main")
         else:
             pass
