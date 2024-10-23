@@ -7,9 +7,10 @@ class data(logic_base):
     fresh_data_time_employment = []
     fresh_data_time_opk_poo = []
     
-    def __init__(self):
+    def __init__(self,page:ft.Page):
+        self.page = page
         self.load_data_time()
-    
+        
     def load_employment_data_time(self):
         from src.queries.orm import orm_data_functions
         from src.models import Data_employment_orm
@@ -33,7 +34,10 @@ class data(logic_base):
             data.fresh_data_time_opk_poo.append(ft.dropdown.Option(text=s))
             
     def load_data_time(self):
+        data.fresh_data_time_opk_poo.clear()
+        data.fresh_data_time_employment.clear()
         self.load_employment_data_time()
         self.load_opk_poo_data_time()
+        self.page.update()
 
 

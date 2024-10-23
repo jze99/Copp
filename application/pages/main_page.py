@@ -14,7 +14,7 @@ class main_page:
         self.page = page
         self.file_picer = ft.FilePicker()
         self.page.overlay.append(self.file_picer)     
-        self.data = data()
+        self._data_ = data(page=self.page)
         
         self.view_work =  ft.Container(expand=True)
         
@@ -112,7 +112,7 @@ class main_page:
         self.view_work.content=save_Employment(
                 text="сохранить рабочих",
                 file_picer=self.file_picer,
-                
+                data=self._data_,
             )
         self.view_work.update()
         
@@ -121,7 +121,7 @@ class main_page:
         self.view_work.content=save_OPK_POO(
                 text="сохранить опк поо",
                 file_picer=self.file_picer,
-                
+                data=self._data_,
             )
         self.view_work.update()
         pass
@@ -132,7 +132,7 @@ class main_page:
         self.view_work.content=load_Employment(
                 text="загрузить рабочих",
                 file_picer_derictory=self.file_picer,
-                data=self.data
+                data=self._data_,
             )
         self.view_work.update()
         
@@ -141,6 +141,7 @@ class main_page:
         self.view_work.content=load_OPK_POO(
                 text="загрузить опк поо",
                 file_picer_derictory=self.file_picer,
+                data=self._data_,
             )
         self.view_work.update()
     

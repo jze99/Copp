@@ -104,6 +104,17 @@ class DropDown(ft.Dropdown):
             #height=100,
             #width=200,
         )
+        
+class AlterDialog(ft.AlertDialog):
+    def __init__(self,text):
+        super().__init__(
+            title=ft.Row(
+                alignment=ft.MainAxisAlignment.CENTER,
+                controls=[
+                    ft.Text(text,size=24),
+                ]
+            ),
+        )
 
 class logic_base():
     
@@ -149,11 +160,11 @@ class logic_base():
    
 class save_OPK_POO(ft.Column, logic_base):
     from user_data import data
-    def __init__(self, text:str="", file_picer:ft.FilePicker=ft.FilePicker()):
+    def __init__(self,data:data, text:str="", file_picer:ft.FilePicker=ft.FilePicker()):
         
         self.text_file_picer = TextFieldFilePicer()
         self.drop_down = DropDown()
-        
+        self._data_=data
         file_picer.on_result = self.file_picer_result
         
         super().__init__(
@@ -202,11 +213,14 @@ class save_OPK_POO(ft.Column, logic_base):
         from work_xlsx.load_xlsx import craete_data_base_xlsx
         temp = craete_data_base_xlsx()
         temp.add_FPM_POO(path=str(self.text_file_picer.value),sheet=self.drop_down.value)
+        self._data_.load_data_time()
+        self._data_.page.open(AlterDialog(text="файл загружен"))
     
 class save_Employment(ft.Column, logic_base):
     from user_data import data
-    def __init__(self, text:str="", file_picer:ft.FilePicker=ft.FilePicker()):
+    def __init__(self,data:data, text:str="", file_picer:ft.FilePicker=ft.FilePicker()):
         
+        self._data_=data
         self.text_file_picer = TextFieldFilePicer()
         self.drop_down = DropDown()
         
@@ -258,6 +272,8 @@ class save_Employment(ft.Column, logic_base):
         from work_xlsx.load_xlsx import craete_data_base_xlsx
         temp = craete_data_base_xlsx()
         temp.add_Employment(path=str(self.text_file_picer.value),sheet=self.drop_down.value)
+        self._data_.load_data_time()
+        self._data_.page.open(AlterDialog(text="файл загружен"))
         
 class load_Employment(ft.Column, logic_base):
     from user_data import data
@@ -308,23 +324,23 @@ class load_Employment(ft.Column, logic_base):
                 )
             ]
         )
-       
-    def on_change_time_picer(self,e):
-        self.button_time_picer.text = f"{e.control.value.day}/{e.control.value.month}/{e.control.value.year}"
-        self.button_time_picer.update()
         
     def logic(self,e):
         from work_xlsx.craeter_xlsx import create_xlsx_Employment
         temp = create_xlsx_Employment(data=self.filter_and_sort_dates(self._data_.fresh_data_time_employment, start_date=self.drop_down_ferst.value, end_date=self.drop_down_last.value))
         temp.create_file(path=str(self.text_file_picer.value))
+        self._data_.page.open(AlterDialog(text="файл загружен"))
 
 class load_OPK_POO(ft.Column, logic_base):
-    def __init__(self, text:str="", file_picer_derictory:ft.FilePicker=ft.FilePicker()):
+    from user_data import data
+    def __init__(self,data:data, text:str="", file_picer_derictory:ft.FilePicker=ft.FilePicker()):
         self.drop_down_ferst = DropDown()
         self.drop_down_last = DropDown()
         self.text_file_picer = TextFieldFilePicer()
         #self.drop_down = DropDown()
-        
+        self._data_ = data
+        self.drop_down_last.options = data.fresh_data_time_employment
+        self.drop_down_ferst.options = data.fresh_data_time_employment
         file_picer_derictory.on_result = self.file_picer_result_derictory
         
         super().__init__(
@@ -369,6 +385,7 @@ class load_OPK_POO(ft.Column, logic_base):
         from work_xlsx.craeter_xlsx import create_xlsx_OPK_POO
         temp = create_xlsx_OPK_POO(data=self.filter_and_sort_dates(self._data_.fresh_data_time_opk_poo, start_date=self.drop_down_ferst.value, end_date=self.drop_down_last.value))
         temp.create_file(path=str(self.text_file_picer.value))
+        self._data_.page.open(AlterDialog(text="файл загружен"))
         
 #on_hover: type[Callable[[Any], Any]]
 #Имя: Remedy
