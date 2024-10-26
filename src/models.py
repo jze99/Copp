@@ -151,7 +151,6 @@ class User(Base):
     id:Mapped[intpk]
     username:Mapped[str] = mapped_column(String(100), nullable=False)    
     password:Mapped[str] = mapped_column(String(200), nullable=False)
-    
     __table_args__ = (
         PrimaryKeyConstraint('id', name='user_pk'),
         UniqueConstraint('username')
