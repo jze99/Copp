@@ -27,9 +27,8 @@ class create_xlsx_OPK_POO:
             self.ws.cell(row=row_table, column=column_table).value = "ПОО"
             self.ws.cell(row=row_table, column=column_table+1).value = "Сумма"
             self.ws.cell(row=row_table, column=column_table+2).value = "проходят производственную практику"
-            self.ws.cell(row=row_table, column=column_table+3).value = "будут проходить производственную практику"
-            self.ws.cell(row=row_table, column=column_table+4).value = "трудоустроены на предприятие"
-            self.ws.cell(row=row_table, column=column_table+5).value = "Всего"
+            self.ws.cell(row=row_table, column=column_table+3).value = "трудоустроены на предприятие"
+            self.ws.cell(row=row_table, column=column_table+4).value = "Всего"
             row_table+=1
             
             for imodel, model in enumerate(self.temp.model_data[data], start=3):
@@ -37,9 +36,8 @@ class create_xlsx_OPK_POO:
                 self.ws.cell(row=row_table, column=column_table).value = temp_model.poo
                 self.ws.cell(row=row_table, column=column_table+1).value = temp_model.summ
                 self.ws.cell(row=row_table, column=column_table+2).value = temp_model.undergoing_production_practice
-                self.ws.cell(row=row_table, column=column_table+3).value = temp_model.will_undergo_production_internship
-                self.ws.cell(row=row_table, column=column_table+4).value = temp_model.employed_by_company
-                self.ws.cell(row=row_table, column=column_table+5).value = temp_model.total
+                self.ws.cell(row=row_table, column=column_table+3).value = temp_model.employed_by_company
+                self.ws.cell(row=row_table, column=column_table+4).value = temp_model.total
                 row_table+=1
                 pass
         
@@ -50,9 +48,8 @@ class create_xlsx_OPK_POO:
         self.ws.cell(row=row_table, column=column_table).value = "дата"
         self.ws.cell(row=row_table+1, column=column_table).value = "Сумма"
         self.ws.cell(row=row_table+2, column=column_table).value = "проходят производственную практику"
-        self.ws.cell(row=row_table+3, column=column_table).value = "будут проходить производственную практику"
-        self.ws.cell(row=row_table+4, column=column_table).value = "трудоустроены на предприятие"
-        self.ws.cell(row=row_table+5, column=column_table).value = "Всего"
+        self.ws.cell(row=row_table+3, column=column_table).value = "трудоустроены на предприятие"
+        self.ws.cell(row=row_table+4, column=column_table).value = "Всего"
         
         column_table+=1
         
@@ -61,9 +58,8 @@ class create_xlsx_OPK_POO:
                 self.ws.cell(row=row_table, column=column_table).value = data
                 self.ws.cell(row=row_table+1, column=column_table).value = dinamic.summ
                 self.ws.cell(row=row_table+2, column=column_table).value = dinamic.undergoing_production_practice
-                self.ws.cell(row=row_table+3, column=column_table).value = dinamic.will_undergo_production_internship
-                self.ws.cell(row=row_table+4, column=column_table).value = dinamic.employed_by_company
-                self.ws.cell(row=row_table+5, column=column_table).value = dinamic.total
+                self.ws.cell(row=row_table+3, column=column_table).value = dinamic.employed_by_company
+                self.ws.cell(row=row_table+4, column=column_table).value = dinamic.total
                 column_table+=1
         
     def create_file(self, path):

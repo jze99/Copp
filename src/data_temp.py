@@ -2,28 +2,25 @@ from src.queries.orm import orm_data_functions
 from src.models import Data_employment_orm, Employment_orm,Data_FPM_POO_orm,FPM_POO_orm
 
 class data_dynamics:
-    def __init__(self,summ:int,undergoing_production_practice:int,will_undergo_production_internship:int,employed_by_company:int,total:int,data:str):
+    def __init__(self,summ:int,undergoing_production_practice:int,employed_by_company:int,total:int,data:str):
         self.summ:int=summ
         self.undergoing_production_practice:int=undergoing_production_practice
-        self.will_undergo_production_internship:int=will_undergo_production_internship
         self.employed_by_company:int=employed_by_company
         self.total:int =total
         self.data:str=data
     
-    def summ_data(self,summ:int,undergoing_production_practice:int,will_undergo_production_internship:int,employed_by_company:int,total:int):
+    def summ_data(self,summ:int,undergoing_production_practice:int,employed_by_company:int,total:int):
         self.summ+=summ
         self.undergoing_production_practice+=undergoing_production_practice
-        self.will_undergo_production_internship+=will_undergo_production_internship
         self.employed_by_company+=employed_by_company
         self.total+=total
 
 class data_FPM_POO:
     
-    def __init__(self,poo:str,summ:int,undergoing_production_practice:int,will_undergo_production_internship:int,employed_by_company:int,total:int,data:str):
+    def __init__(self,poo:str,summ:int,undergoing_production_practice:int,employed_by_company:int,total:int,data:str):
         self.poo:str=poo
         self.summ:int=summ
         self.undergoing_production_practice:int=undergoing_production_practice
-        self.will_undergo_production_internship:int=will_undergo_production_internship
         self.employed_by_company:int=employed_by_company
         self.total:int =total
         self.data:str=data
@@ -32,10 +29,9 @@ class data_FPM_POO:
         temp = self.poo
         return temp
      
-    def summ_data(self,summ:int,undergoing_production_practice:int,will_undergo_production_internship:int,employed_by_company:int,total:int):
+    def summ_data(self,summ:int,undergoing_production_practice:int,employed_by_company:int,total:int):
         self.summ+=summ
         self.undergoing_production_practice+=undergoing_production_practice
-        self.will_undergo_production_internship+=will_undergo_production_internship
         self.employed_by_company+=employed_by_company
         self.total+=total
     
@@ -73,18 +69,16 @@ class data_FPM_dinamics(orm_data_functions):
             if model.poo not in model_data_poo:
                 model_data_poo[model.poo] = data_FPM_POO(
                     poo=model.poo,
-                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.will_undergo_production_internship)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
+                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
                     undergoing_production_practice=int(self.validate_data_or_none(model.undergoing_production_practice)),
-                    will_undergo_production_internship=int(self.validate_data_or_none(model.will_undergo_production_internship)),
                     employed_by_company=int(self.validate_data_or_none(model.employed_by_company)),
                     total=int(self.validate_data_or_none(model.total)),
                     data=model.data
                 )
             else:
                 model_data_poo[model.poo].summ_data(
-                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.will_undergo_production_internship)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
+                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
                     undergoing_production_practice=int(self.validate_data_or_none(model.undergoing_production_practice)),
-                    will_undergo_production_internship=int(self.validate_data_or_none(model.will_undergo_production_internship)),
                     employed_by_company=int(self.validate_data_or_none(model.employed_by_company)),
                     total=int(self.validate_data_or_none(model.total)),
                 )
@@ -95,18 +89,16 @@ class data_FPM_dinamics(orm_data_functions):
         for model in self.poo_data_time_filter[data]:
             if data not in model_data_poo:
                 model_data_poo[data] = data_dynamics(
-                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.will_undergo_production_internship)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
+                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
                     undergoing_production_practice=int(self.validate_data_or_none(model.undergoing_production_practice)),
-                    will_undergo_production_internship=int(self.validate_data_or_none(model.will_undergo_production_internship)),
                     employed_by_company=int(self.validate_data_or_none(model.employed_by_company)),
                     total=int(self.validate_data_or_none(model.total)),
                     data=model.data
                 )
             else:
                 model_data_poo[data].summ_data(
-                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.will_undergo_production_internship)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
+                    summ=(int(self.validate_data_or_none(model.undergoing_production_practice)) + int(self.validate_data_or_none(model.employed_by_company)) + int(self.validate_data_or_none(model.total))),
                     undergoing_production_practice=int(self.validate_data_or_none(model.undergoing_production_practice)),
-                    will_undergo_production_internship=int(self.validate_data_or_none(model.will_undergo_production_internship)),
                     employed_by_company=int(self.validate_data_or_none(model.employed_by_company)),
                     total=int(self.validate_data_or_none(model.total))
                 )

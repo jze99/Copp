@@ -52,18 +52,17 @@ class craete_data_base_xlsx(validate_data):
                 number_of_vacancies=str(xl[8]),# категория профессии, должности на предприятии
                 undergoing_production_practice=str(xl[9]),#Наименование профессии / специальности СПО
 
-                will_undergo_production_internship=str(xl[10]),
-                employed_by_company=str(xl[11]),
-                target=str(xl[12]),
+                employed_by_company=str(xl[10]),
+                target=str(xl[11]),
 
-                total=str(xl[13]),
-                since_last_year=str(xl[14]),
-                employed_this_year=str(xl[15]),
+                total=str(xl[12]),
+                since_last_year=str(xl[13]),
+                employed_this_year=str(xl[14]),
 
-                employed_previous_years=str(xl[16]),
-                employed_previous_years_pre_call=str(xl[17]),
-                closed_other_ways=str(xl[18]),
-
+                employed_previous_years=str(xl[15]),
+                employed_previous_years_pre_call=str(xl[16]),
+                closed_other_ways=str(xl[17]),
+                notes=str(xl[18]),
                 mechanism_closing_different_way=str(xl[19]),
                 data=str(xl[20])
             )

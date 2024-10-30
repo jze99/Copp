@@ -347,8 +347,8 @@ class load_OPK_POO(ft.Column, logic_base):
         self.text_file_picer = TextFieldFilePicer()
         #self.drop_down = DropDown()
         self._data_ = data
-        self.drop_down_last.options = data.fresh_data_time_employment
-        self.drop_down_ferst.options = data.fresh_data_time_employment
+        self.drop_down_last.options = data.fresh_data_time_opk_poo
+        self.drop_down_ferst.options = data.fresh_data_time_opk_poo
         file_picer_derictory.on_result = self.file_picer_result_derictory
         
         super().__init__(

@@ -6,7 +6,7 @@ class data(logic_base):
     
     fresh_data_time_employment = []
     fresh_data_time_opk_poo = []
-    user_name:str=""
+    user_name:str="123"
     def __init__(self,page:ft.Page):
         self.page = page
         self.load_data_time()
