@@ -35,28 +35,29 @@ class Data_FPM_POO_orm(Base):
     
 class FPM_POO_orm(Base):
     __tablename__="ФПМ ПОО"
-    id:Mapped[intpk]
-    poo:Mapped[str]
-    subject:Mapped[str]
-    inn:Mapped[str]
-    company:Mapped[str]
-    professions_positions:Mapped[str]
-    profession_category:Mapped[str]
-    professions_positions_:Mapped[str]
-    name_profession:Mapped[str]
-    number_of_vacancies:Mapped[str]
-    undergoing_production_practice:Mapped[str]#проходят производственную ппарктику1
-    will_undergo_production_internship:Mapped[str]#будут проходить практику2
-    employed_by_company:Mapped[str]#устроенные в компанию3
-    target:Mapped[str]#целевое
-    total:Mapped[str]#всего4
-    since_last_year:Mapped[str]#с прошлого года
-    employed_this_year:Mapped[str]#Из них трудоустроенны выпускники этого года
-    employed_previous_years:Mapped[str]#Из них трудоустроенные выпускники прошлых лет
-    employed_previous_years_pre_call:Mapped[str]#Из них трудоустроенные выпускники прошлых лет завершивших службу по призыву
-    closed_other_ways:Mapped[str]#Количество вакансий, закрытых иными способами
-    mechanism_closing_different_way:Mapped[str]#Механизм закрытия иным способом
-    data:Mapped[str]#дата
+    id:Mapped[intpk]#0
+    poo:Mapped[str]#1
+    subject:Mapped[str]#2
+    inn:Mapped[str]#3
+    company:Mapped[str]#4
+    professions_positions:Mapped[str]#5
+    profession_category:Mapped[str]#6
+    professions_positions_:Mapped[str]#7
+    name_profession:Mapped[str]#8
+    number_of_vacancies:Mapped[str]#9
+    undergoing_production_practice:Mapped[str]#проходят производственную ппарктику10
+    
+    employed_by_company:Mapped[str]#устроенные в компанию11
+    target:Mapped[str]#целевое12
+    total:Mapped[str]#всего13
+    since_last_year:Mapped[str]#с прошлого года14
+    employed_this_year:Mapped[str]#Из них трудоустроенны выпускники этого года15
+    employed_previous_years:Mapped[str]#Из них трудоустроенные выпускники прошлых лет16
+    employed_previous_years_pre_call:Mapped[str]#Из них трудоустроенные выпускники прошлых лет завершивших службу по призыву17
+    closed_other_ways:Mapped[str]#Количество вакансий, закрытых иными способами18
+    mechanism_closing_different_way:Mapped[str]#Механизм закрытия иным способом19
+    notes:Mapped[str]#премечания20
+    data:Mapped[str]#дата21
 
 class Data_employment_orm(Base):
     __tablename__="Дата трудоустройство"
